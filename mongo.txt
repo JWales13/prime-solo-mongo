@@ -1,0 +1,51 @@
+--1. Create a collection named orders.
+db.createCollection('orders');
+
+--2.Insert at least 3 documents that represent an order. IMPORTANT: See section below for fields.
+db.orders.insert(
+{
+    orderDate: "1942-12-07",
+    orderTotal: 1,
+    lineItems: {
+        unitPrice: .25,
+        quantity: 10000,
+        productName: 'Spam'}
+    }); 
+
+db.orders.insert(
+{
+    orderDate: "1987-10-01",
+    orderTotal: 100,
+    lineItems: {
+        unitPrice: 3.00,
+        quantity: 10000,
+        productName: 'Homer Hanky'}
+    });    
+  
+  db.orders.insert(
+{
+    orderDate: "1991-10-01",
+    orderTotal: 100,
+    lineItems: {
+        unitPrice: 4.00,
+        quantity: 15000,
+        productName: 'Homer Hanky'}
+    });
+
+--3.Find a single order document, any order document
+db.orders.find({orderDate: "1991-10-01"});
+
+--4.Find all orders and make them look pretty.
+db.orders.find().pretty();
+
+
+--5.Find all orders with an orderDate that is prior to 1/1/2016.    
+db.orders.find({orderDate: {$lt: "2016-01-01"}});
+
+
+--6.Find all orders with an orderDate that is after 1/1/2016.
+db.orders.find({orderDate: {$gt: "2016-01-01"}});
+
+
+--7.Find orders with lineItems that have a quantity that is less than 50, but greater than 5.
+db.order.find({'lineItems.quantity': {$lte : 50, $gte : 5}});
